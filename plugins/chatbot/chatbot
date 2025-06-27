@@ -33,14 +33,14 @@ user_spam_warnings = {}
 
 # Response messages
 RESPONSES = [
-    "Hii! Kaise ho? 😊",
-    "Main thik hoon, tum kaise ho? 🌸",
-    "Wow, yeh toh amazing hai! 😍",
-    "Acha yeh batao, aur kya chal raha hai? 🧐",
-    "Tumhare baare mein aur jaan ne ka mann kar raha hai! 🥰",
-    "Sach mein, mazaa aa gaya! ❤️",
-    "Aapki baatein hamesha achhi lagti hain! 🥀",
-    "Mujhe yeh pasand aaya! 🤗"
+    "Hii! 😊",
+    "Yihi sahabat🌸",
+    "Mang iya?😍",
+    "Gdulu dek😂",
+    "bubup🥰",
+    "Ehhh imup❤️",
+    "Ckptw🥀",
+    "Mwahhhh🤗"
 ]
 
 # Function to send logs to the log group
