@@ -16,7 +16,7 @@ LOGGER = getLogger(__name__)
 
 champu = [
     "ʜᴇʏ", "Selamat Datang", "ʜᴇʟʟᴏ", "ʜɪ", "Iya deh", "Sokabin aja ya", "ᴡᴇʟᴄᴏᴍᴇ",
-    "Wl", "Hai ganteng", "ɪss ɢʀᴏᴜᴘ ᴍᴀɪɴ ᴀᴘᴋᴀ sᴡᴀɢᴀᴛ ʜᴀɪ",
+    "wlcm", "Hai ganteng", "Eh jangan lupa nimb ia",
     "Hai manis", "Semoga betah ya"
 ]
 
