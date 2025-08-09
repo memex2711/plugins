@@ -57,3 +57,7 @@ async def remove_afk(_, message):
     if data:
         await remove_afk(message.from_user.id)
         await message.reply_text("✅ Status AFK/BRB dihapus.")
+
+__MODULE__ = "Bᴀɴ"
+__HELP__ = """
+/afk atau brb """
