@@ -15,7 +15,7 @@ QUOTE_COLORS = [
 ]
 
 # API Quotly (gratis, no auth)
-QUOTLY_API = "https://quotes.mishase.dev/create"
+QUOTLY_API = "https://bot.lyo.su/quote/generate.png"
 
 async def generate_quote(messages, color, is_reply=False):
     """
