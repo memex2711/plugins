@@ -1,5 +1,6 @@
 import asyncio
 import random
+import time
 
 from pyrogram import Client, filters
 from pyrogram.raw.functions.messages import DeleteHistory
@@ -9,60 +10,87 @@ from ChampuMusic import app
 from ChampuMusic.core.userbot import assistants
 from ChampuMusic.utils.database import get_client
 
+# Cache untuk menghindari spam
+last_checked = {}
 
-@app.on_message(filters.command(["sg", "History"]))
-async def sg(client: Client, message: Message):
-
-    if len(message.text.split()) < 2 and not message.reply_to_message:
-        return await message.reply("sg username/id/reply")
-    if message.reply_to_message:
-        args = message.reply_to_message.from_user.id
-    else:
-        args = message.text.split()[1:]
-        if not args:
-            return await message.reply(
-                "Please provide a username, ID, or reply to a message."
-            )
-        args = args[0]
-    lol = await message.reply("<code>Processing...</code>")
-    if args:
-        try:
-            user = await client.get_users(f"{args}")
-        except Exception:
-            return await lol.edit("<code>Please specify a valid user!</code>")
+async def get_sangmata_history(user_id: int):
+    """Ambil history dari sangmata_bot untuk user_id"""
     sgbot = ["sangmata_bot", "sangmata_beta_bot"]
     sg = random.choice(sgbot)
     CHAMPU = random.choice(assistants)
     ubot = await get_client(CHAMPU)
 
     try:
-        a = await ubot.send_message(sg, f"{user.id}")
-        await a.delete()
+        msg = await ubot.send_message(sg, str(user_id))
+        await msg.delete()
     except Exception as e:
-        return await lol.edit(str(e))
+        return f"❌ Error: {e}"
+
     await asyncio.sleep(1)
 
-    async for stalk in ubot.search_messages(a.chat.id):
-        if stalk.text is None:
-            continue
-        if not stalk:
-            await message.reply("botnya ngambek")
-        elif stalk:
-            await message.reply(f"{stalk.text}")
-            break
+    async for stalk in ubot.search_messages(sg):
+        if stalk.text:
+            # Hapus history chat dengan sangmata_bot
+            try:
+                user_info = await ubot.resolve_peer(sg)
+                await ubot.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
+            except:
+                pass
+            return stalk.text
 
+    return None
+
+
+@app.on_message(filters.command(["sg", "History"]))
+async def manual_sg(client: Client, message: Message):
+    """Perintah manual /sg"""
+    if len(message.text.split()) < 2 and not message.reply_to_message:
+        return await message.reply("<blockquote>⚠️ Balas pesan atau tulis ID/username.</blockquote>")
+
+    if message.reply_to_message:
+        target_id = message.reply_to_message.from_user.id
+    else:
+        args = message.text.split()[1:]
+        if not args:
+            return await message.reply("<blockquote>⚠️ Masukkan username/ID.</blockquote>")
+        target_id = args[0]
+
+    lol = await message.reply("<code>Processing...</code>")
     try:
-        user_info = await ubot.resolve_peer(sg)
-        await ubot.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
-    except Exception:
-        pass
+        user = await client.get_users(str(target_id))
+    except:
+        return await lol.edit("<blockquote>⚠️ User tidak valid.</blockquote>")
 
-    await lol.delete()
+    result = await get_sangmata_history(user.id)
+    if not result:
+        await lol.edit("<blockquote>⚠️ Tidak ada data dari SangMata.</blockquote>")
+    else:
+        await lol.edit(result)
+
+
+@app.on_message(filters.group & ~filters.bot)
+async def auto_sg(client: Client, message: Message):
+    """Cek otomatis setiap kali ada user kirim pesan"""
+    if not message.from_user:
+        return
+
+    user_id = message.from_user.id
+    now = time.time()
+
+    # Jangan cek kalau baru saja dicek (1 jam cooldown)
+    if user_id in last_checked and now - last_checked[user_id] < 3600:
+        return
+
+    last_checked[user_id] = now
+
+    result = await get_sangmata_history(user_id)
+    if result:
+        await message.reply_text(result)
 
 
 __MODULE__ = "Hɪsᴛᴏʀʏ"
 __HELP__ = """
-## Hɪsᴛᴏʀʏ Cᴏᴍᴍᴀɴᴅs Hᴇᴘ
+<blockquote expandable>## Hɪsᴛᴏʀʏ Cᴏᴍᴍᴀɴᴅs Hᴇᴘ
 
 ### 1. /sɢ ᴏʀ /Hɪsᴛᴏʀʏ
 **Dᴇsᴄʀɪᴘᴛɪᴏɴ:**
@@ -79,5 +107,5 @@ Fᴇᴛᴄʜᴇs ᴀ ʀᴀɴᴅᴏᴍ ᴍᴇssᴀɢᴇ ғʀᴏᴍ ᴀ ᴜsᴇʀ'
 **Exᴀᴍᴘᴇs:**
 - `/sɢ ᴜsᴇʀɴᴀᴍᴇ`
 - `/sɢ ᴜsᴇʀ_ɪᴅ`
-- `/sɢ [ʀᴇᴘʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ]`
+- `/sɢ [ʀᴇᴘʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ]`</blockquote>
 """
