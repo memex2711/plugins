@@ -63,10 +63,12 @@ async def generate_quote(messages, color, is_reply=False):
     bio_sticker.name = "quote.webp"
     return bio_sticker
 
+
 @app.on_message(filters.command("qcolor"))
 async def qcolor_handler(_, message: Message):
     warna_list = "\n• " + "\n• ".join(QUOTE_COLORS)
     await message.reply_text(f"🎨 **Daftar warna Quote:**{warna_list}")
+
 
 @app.on_message(filters.command(["q", "qr"]))
 async def quote_handler(client, message: Message):
@@ -121,6 +123,7 @@ async def quote_handler(client, message: Message):
         await message.reply_sticker(sticker)
     except Exception as e:
         await message.reply_text(f"❌ Gagal membuat quote: {e}")
+
 
 __MODULES__ = "Quote"
 __HELP__ = """<blockquote>Command Help **Quote**</blockquote>
