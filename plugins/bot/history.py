@@ -67,26 +67,36 @@ async def sg(client: Client, message: Message):
 
 
 # === Auto SangMata (User Baru & Chat) ===
+
+last_username = {}
+
 @app.on_message(filters.all & ~filters.bot)
 async def auto_sangmata(client: Client, message: Message):
-    # Abaikan jika pesan dari channel atau bot
     if not message.from_user or message.from_user.is_bot:
         return
 
+    user_id = message.from_user.id
+    current_username = message.from_user.username
+
+    # Cek apakah user baru ganti username
+    if user_id in last_username:
+        if last_username[user_id] == current_username:
+            return  # Username sama → skip
+    last_username[user_id] = current_username  # Update username terakhir
+
     try:
-        target_id = message.from_user.id
         sgbot = ["sangmata_bot", "sangmata_beta_bot"]
         sg = random.choice(sgbot)
         CHAMPU = random.choice(assistants)
         ubot = await get_client(CHAMPU)
 
-        a = await ubot.send_message(sg, f"{target_id}")
+        a = await ubot.send_message(sg, f"{user_id}")
         await a.delete()
         await asyncio.sleep(1)
 
         async for stalk in ubot.search_messages(a.chat.id):
             if stalk.text:
-                await message.reply_text(f" AutoSangMata:\n{stalk.text}")
+                await message.reply_text(f"AutoSangMata:\n{stalk.text}")
                 break
 
         try:
