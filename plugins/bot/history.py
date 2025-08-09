@@ -15,7 +15,7 @@ last_checked = {}
 
 async def get_sangmata_history(user_id: int):
     """Ambil history dari sangmata_bot untuk user_id"""
-    sgbot = ["sangmata_bot", "sangmata_beta_bot"]
+    sgbot = ["SangMata_Bot", "SangMata_beta_bot"]
     sg = random.choice(sgbot)
     CHAMPU = random.choice(assistants)
     ubot = await get_client(CHAMPU)
