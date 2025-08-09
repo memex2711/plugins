@@ -56,7 +56,7 @@ async def tag_all_users(_, message):
                         usertxt,
                         disable_web_page_preview=True,
                     )
-                    await asyncio.sleep(1)
+                    await asyncio.sleep(5)
                     usernum = 0
                     usertxt = ""
 
@@ -90,7 +90,7 @@ async def tag_all_users(_, message):
                         f"<blockquote>{text}\n{usertxt}</blockquote>",
                         disable_web_page_preview=True,
                     )
-                    await asyncio.sleep(2)
+                    await asyncio.sleep(5)
                     usernum = 0
                     usertxt = ""
             if usernum != 0:
@@ -137,7 +137,7 @@ async def tag_all_admins(_, message):
                         usertxt,
                         disable_web_page_preview=True,
                     )
-                    await asyncio.sleep(1)
+                    await asyncio.sleep(5)
                     usernum = 0
                     usertxt = ""
             if usernum != 0:
@@ -172,7 +172,7 @@ async def tag_all_admins(_, message):
                         f"<blockquote>{text}\n{usertxt}</blockquote>",
                         disable_web_page_preview=True,
                     )
-                    await asyncio.sleep(2)
+                    await asyncio.sleep(5)
                     usernum = 0
                     usertxt = ""
             if usernum != 0:
