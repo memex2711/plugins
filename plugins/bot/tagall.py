@@ -31,12 +31,12 @@ async def tag_all_users(_, message):
 
     if message.chat.id in SPAM_CHATS:
         return await message.reply_text(
-            "ᴛᴀɢɢɪɴɢ ᴘʀᴏᴄᴇss ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ sᴛᴏᴘ sᴏ ᴜsᴇ /cancel"
+            "<blockquote>ᴛᴀɢɢɪɴɢ ᴘʀᴏᴄᴇss ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ sᴛᴏᴘ sᴏ ᴜsᴇ /cancel</blockquote>"
         )
     replied = message.reply_to_message
     if len(message.command) < 2 and not replied:
         await message.reply_text(
-            "** ɢɪᴠᴇ sᴏᴍᴇ ᴛᴇxᴛ ᴛᴏ ᴛᴀɢ ᴀʟʟ, ʟɪᴋᴇ »** `@all Hi Friends`"
+            "<blockquote>ɢɪᴠᴇ sᴏᴍᴇ ᴛᴇxᴛ ᴛᴏ ᴛᴀɢ ᴀʟʟ, ʟɪᴋᴇ » `@all Hi Friends`</blockquote>"
         )
         return
     if replied:
@@ -50,7 +50,7 @@ async def tag_all_users(_, message):
                 if m.user.is_deleted or m.user.is_bot:
                     continue
                 usernum += 1
-                usertxt += f"[{m.user.first_name}](tg://user?id={m.user.id})  "
+                usertxt += f"<blockquote>[{m.user.first_name}](tg://user?id={m.user.id})  </blockquote>"
                 if usernum == 7:
                     await replied.reply_text(
                         usertxt,
@@ -83,11 +83,11 @@ async def tag_all_users(_, message):
                 if m.user.is_deleted or m.user.is_bot:
                     continue
                 usernum += 1
-                usertxt += f"[{m.user.first_name}](tg://user?id={m.user.id})  "
+                usertxt += f"<blockquote>[{m.user.first_name}](tg://user?id={m.user.id})  </blockquote>"
                 if usernum == 7:
                     await app.send_message(
                         message.chat.id,
-                        f"{text}\n{usertxt}",
+                        f"<blockquote>{text}\n{usertxt}</blockquote>",
                         disable_web_page_preview=True,
                     )
                     await asyncio.sleep(2)
@@ -96,7 +96,7 @@ async def tag_all_users(_, message):
             if usernum != 0:
                 await app.send_message(
                     message.chat.id,
-                    f"{text}\n\n{usertxt}",
+                    f"<blockquote>{text}\n\n{usertxt}</blockquote>",
                     disable_web_page_preview=True,
                 )
         except FloodWait as e:
@@ -110,12 +110,12 @@ async def tag_all_users(_, message):
 async def tag_all_admins(_, message):
     if message.chat.id in SPAM_CHATS:
         return await message.reply_text(
-            "ᴛᴀɢɢɪɴɢ ᴘʀᴏᴄᴇss ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ sᴛᴏᴘ sᴏ ᴜsᴇ /cancel"
+            "<blockquote>ᴛᴀɢɢɪɴɢ ᴘʀᴏᴄᴇss ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ sᴛᴏᴘ sᴏ ᴜsᴇ /cancel</blockquote>"
         )
     replied = message.reply_to_message
     if len(message.command) < 2 and not replied:
         await message.reply_text(
-            "** ɢɪᴠᴇ sᴏᴍᴇ ᴛᴇxᴛ ᴛᴏ ᴛᴀɢ ᴀʟʟ, ʟɪᴋᴇ »** `@admins Hi Friends`"
+            "<blockquote>ɢɪᴠᴇ sᴏᴍᴇ ᴛᴇxᴛ ᴛᴏ ᴛᴀɢ ᴀʟʟ, ʟɪᴋᴇ » `@admins Hi Friends`</blockquote>"
         )
         return
     if replied:
@@ -131,7 +131,7 @@ async def tag_all_admins(_, message):
                 if m.user.is_deleted or m.user.is_bot:
                     continue
                 usernum += 1
-                usertxt += f"[{m.user.first_name}](tg://user?id={m.user.id})  "
+                usertxt += f"<blockquote>[{m.user.first_name}](tg://user?id={m.user.id})  </blockquote>"
                 if usernum == 7:
                     await replied.reply_text(
                         usertxt,
@@ -165,11 +165,11 @@ async def tag_all_admins(_, message):
                 if m.user.is_deleted or m.user.is_bot:
                     continue
                 usernum += 1
-                usertxt += f"[{m.user.first_name}](tg://user?id={m.user.id})  "
+                usertxt += f"<blockquote>[{m.user.first_name}](tg://user?id={m.user.id})  </blockquote>"
                 if usernum == 7:
                     await app.send_message(
                         message.chat.id,
-                        f"{text}\n{usertxt}",
+                        f"<blockquote>{text}\n{usertxt}</blockquote>",
                         disable_web_page_preview=True,
                     )
                     await asyncio.sleep(2)
@@ -178,7 +178,7 @@ async def tag_all_admins(_, message):
             if usernum != 0:
                 await app.send_message(
                     message.chat.id,
-                    f"{text}\n\n{usertxt}",
+                    f"</blockquote>{text}\n\n{usertxt}</blockquote>",
                     disable_web_page_preview=True,
                 )
         except FloodWait as e:
@@ -206,36 +206,36 @@ async def admintag_with_reporting(client, message):
     if message.command[0] == "report":
         if from_user_id in admins:
             return await message.reply_text(
-                "ᴏᴘᴘs! ʏᴏᴜ ᴀʀᴇ ʟᴏᴏᴋs ʟɪᴋᴇ ᴀɴ ᴀᴅᴍɪɴ!\nʏᴏᴜ ᴄᴀɴ'ᴛ ʀᴇᴘᴏʀᴛ ᴀɴʏ ᴜsᴇʀs ᴛᴏ ᴀᴅᴍɪɴ"
+                "<blockquote>ᴏᴘᴘs! ʏᴏᴜ ᴀʀᴇ ʟᴏᴏᴋs ʟɪᴋᴇ ᴀɴ ᴀᴅᴍɪɴ!\nʏᴏᴜ ᴄᴀɴ'ᴛ ʀᴇᴘᴏʀᴛ ᴀɴʏ ᴜsᴇʀs ᴛᴏ ᴀᴅᴍɪɴ</blockquote>"
             )
 
     if from_user_id in admins:
         return await tag_all_admins(client, message)
 
     if len(message.text.split()) <= 1 and not message.reply_to_message:
-        return await message.reply_text("ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ ᴛᴏ ʀᴇᴘᴏʀᴛ ᴛʜᴀᴛ ᴜsᴇʀ.")
+        return await message.reply_text("<blockquote>ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ ᴛᴏ ʀᴇᴘᴏʀᴛ ᴛʜᴀᴛ ᴜsᴇʀ.</blockquote>")
 
     reply = message.reply_to_message or message
     reply_user_id = reply.from_user.id if reply.from_user else reply.sender_chat.id
     linked_chat = (await client.get_chat(chat_id)).linked_chat
     if reply_user_id == app.id:
-        return await message.reply_text("ᴡʜʏ ᴡᴏᴜʟᴅ ɪ ʀᴇᴘᴏʀᴛ ᴍʏsᴇʟғ?")
+        return await message.reply_text("<blockquote>ᴡʜʏ ᴡᴏᴜʟᴅ ɪ ʀᴇᴘᴏʀᴛ ᴍʏsᴇʟғ?</blockquote>")
     if (
         reply_user_id in admins
         or reply_user_id == chat_id
         or (linked_chat and reply_user_id == linked_chat.id)
     ):
         return await message.reply_text(
-            "Do you know that the user you are replying to is an admin?"
+            "<blockquote>Do you know that the user you are replying to is an admin?</blockquote>"
         )
 
     user_mention = reply.from_user.mention if reply.from_user else "the user"
-    text = f"Reported {user_mention} to admins!."
+    text = f"<blockquote>Reported {user_mention} to admins!.</blockquote>"
 
     for admin in admins:
         admin_member = await client.get_chat_member(chat_id, admin)
         if not admin_member.user.is_bot and not admin_member.user.is_deleted:
-            text += f"[\u2063](tg://user?id={admin})"
+            text += f"<blockquote>[\u2063](tg://user?id={admin})</blockquote>"
 
     await reply.reply_text(text)
 
@@ -263,22 +263,22 @@ async def cancelcmd(_, message):
             SPAM_CHATS.remove(chat_id)
         except Exception:
             pass
-        return await message.reply_text("**ᴛᴀɢɢɪɴɢ ᴘʀᴏᴄᴇss sᴜᴄᴄᴇssғᴜʟʟʏ sᴛᴏᴘᴘᴇᴅ!**")
+        return await message.reply_text("<blockquote>ᴛᴀɢɢɪɴɢ ᴘʀᴏᴄᴇss sᴜᴄᴄᴇssғᴜʟʟʏ sᴛᴏᴘᴘᴇᴅ!</blockquote>")
 
     else:
-        await message.reply_text("**ɴᴏ ᴘʀᴏᴄᴇss ᴏɴɢᴏɪɴɢ!**")
+        await message.reply_text("<blockquote>ɴᴏ ᴘʀᴏᴄᴇss ᴏɴɢᴏɪɴɢ!</blockquote>")
         return
 
 
 __MODULE__ = "Tᴀɢᴀʟʟ"
 __HELP__ = """
 
-@all ᴏʀ /all | /tagall ᴏʀ  @tagall | /mentionall ᴏʀ  @mentionall [ᴛᴇxᴛ] ᴏʀ [ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇssᴀɢᴇ] ᴛᴏ ᴛᴀɢ ᴀʟʟ ᴜsᴇʀ's ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ʙᴛ ʙᴏᴛ
+<blockquote expandable>@all ᴏʀ /all | /tagall ᴏʀ  @tagall | /mentionall ᴏʀ  @mentionall [ᴛᴇxᴛ] ᴏʀ [ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇssᴀɢᴇ] ᴛᴏ ᴛᴀɢ ᴀʟʟ ᴜsᴇʀ's ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ʙᴛ ʙᴏᴛ
 
 /admins | @admins | /report [ᴛᴇxᴛ] ᴏʀ [ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇssᴀɢᴇ] ᴛᴏ ᴛᴀɢ ᴀʟʟ ᴀᴅᴍɪɴ's ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ
 
 
 /cancel Oʀ @cancel |  /offmention Oʀ @offmention | /mentionoff Oʀ @mentionoff | /cancelall Oʀ @cancelall - ᴛᴏ sᴛᴏᴘ ʀᴜɴɴɪɴɢ ᴀɴʏ ᴛᴀɢ ᴘʀᴏᴄᴇss
 
-**__Nᴏᴛᴇ__** Tʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴄᴀɴ ᴏɴʟʏ ᴜsᴇ ᴛʜᴇ Aᴅᴍɪɴs ᴏғ Cʜᴀᴛ ᴀɴᴅ ᴍᴀᴋᴇ Sᴜʀᴇ Bᴏᴛ ᴀɴᴅ ᴀssɪsᴛᴀɴᴛ ɪs ᴀɴ ᴀᴅᴍɪɴ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ's
+**__Nᴏᴛᴇ__** Tʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴄᴀɴ ᴏɴʟʏ ᴜsᴇ ᴛʜᴇ Aᴅᴍɪɴs ᴏғ Cʜᴀᴛ ᴀɴᴅ ᴍᴀᴋᴇ Sᴜʀᴇ Bᴏᴛ ᴀɴᴅ ᴀssɪsᴛᴀɴᴛ ɪs ᴀɴ ᴀᴅᴍɪɴ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ's</blockquote>
 """
