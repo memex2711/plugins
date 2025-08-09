@@ -1,7 +1,4 @@
 import os
-import io
-import base64
-import json
 import random
 import aiohttp
 from io import BytesIO
@@ -11,10 +8,11 @@ from pyrogram.types import Message
 
 # List warna yang tersedia
 QUOTE_COLORS = [
-    "black", "white", "blue", "green", "red", "pink", "purple", "orange", "grey", "brown"
+    "black", "white", "blue", "green", "red", "pink",
+    "purple", "orange", "grey", "brown"
 ]
 
-# API Quotly (gratis, no auth)
+# API Quotly
 QUOTLY_API = "https://bot.lyo.su/quote/generate.png"
 
 async def generate_quote(messages, color, is_reply=False):
@@ -31,6 +29,17 @@ async def generate_quote(messages, color, is_reply=False):
     for msg in messages:
         if not msg.from_user:
             continue
+
+        # Data reply
+        reply_data = None
+        if is_reply and msg.reply_to_message and msg.reply_to_message.from_user:
+            reply_data = {
+                "name": msg.reply_to_message.from_user.first_name or "NoName",
+                "username": msg.reply_to_message.from_user.username or "",
+                "id": msg.reply_to_message.from_user.id,
+                "type": "user"
+            }
+
         payload["messages"].append({
             "entities": [],
             "avatar": True,
@@ -41,17 +50,16 @@ async def generate_quote(messages, color, is_reply=False):
                 "type": "user"
             },
             "text": msg.text or msg.caption or "",
-            "reply": None
+            "reply": reply_data
         })
 
     async with aiohttp.ClientSession() as session:
         async with session.post(QUOTLY_API, json=payload) as resp:
             if resp.status != 200:
                 raise Exception(f"API error {resp.status}")
-            data = await resp.json()
+            image_bytes = await resp.read()
 
-    image_data = base64.b64decode(data["result"]["image"])
-    bio_sticker = BytesIO(image_data)
+    bio_sticker = BytesIO(image_bytes)
     bio_sticker.name = "quote.webp"
     return bio_sticker
 
@@ -118,12 +126,16 @@ __MODULES__ = "Quote"
 __HELP__ = """<blockquote>Command Help **Quote**</blockquote>
 
 <blockquote>**Make quote text with color** </blockquote>
-    **You can make quote the message with random color or costum color just give name color after command**
+    **You can make quote the message with random color or custom color just give name color after command**
         `{0}q pink` (reply message)
 
 <blockquote>**Make fake quote text** </blockquote>
     **You can make fake quote user the message with this message**
         `{0}q @dreamskyzi` (reply message)
+
+<blockquote>**Make reply-style quote** </blockquote>
+    **Like real Telegram reply quote**
+        `{0}qr` (reply message)
 
 <blockquote>**View quote color** </blockquote>
     **Get supported color for quote**
