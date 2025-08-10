@@ -14,10 +14,10 @@ async def set_afk_cmd(_, message):
 # BRB tanpa slash (contoh: brb tidur) (bisa dipakai semua user)
 @app.on_message(filters.regex(r"(?i)^brb(?:\s+(.+))?$"))
 async def set_brb_cmd(_, message):
-    reason = message.matches[0].group(1) if message.matches[0].group(1) else "AFK"
+    reason = message.matches[0].group(1) if message.matches[0].group(1) else "brb mulu lu pler"
     await set_afk(message.from_user.id, reason)
     await message.reply_text(
-        f"<blockquote>gwej afk ☝️😹\n{reason}</blockquote>"
+        f"<blockquote>gwej afk ☝️😹\n{reason}\n</blockquote>"
     )
 
 # Auto balas jika ada yang mention / reply
