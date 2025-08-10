@@ -67,13 +67,13 @@ async def generate_quote(messages, color, is_reply=False):
 @app.on_message(filters.command("qcolor"))
 async def qcolor_handler(_, message: Message):
     warna_list = "\n• " + "\n• ".join(QUOTE_COLORS)
-    await message.reply_text(f"🎨 **Daftar warna Quote:**{warna_list}")
+    await message.reply_text(f"<blockquote>🎨 **Daftar warna Quote:**{warna_list}</blockquote>")
 
 
 @app.on_message(filters.command(["q", "qr"]))
 async def quote_handler(client, message: Message):
     if not message.reply_to_message:
-        return await message.reply_text("⚠️ Balas pesan yang ingin di-quote!")
+        return await message.reply_text("<blockquote>⚠️ Balas pesan yang ingin di-quote!</blockquote>")
 
     args = message.text.split()
     is_reply_style = message.command[0] == "qr"
@@ -97,7 +97,7 @@ async def quote_handler(client, message: Message):
     messages = []
     if multi_count:
         if multi_count > 10:
-            return await message.reply_text("⚠️ Maksimal 10 pesan!")
+            return await message.reply_text("<blockquote>⚠️ Maksimal 10 pesan!</blockquote>")
         msgs = await client.get_messages(
             chat_id=message.chat.id,
             message_ids=range(
@@ -116,13 +116,13 @@ async def quote_handler(client, message: Message):
             for m in messages:
                 m.from_user = user_data
         except Exception as e:
-            return await message.reply_text(f"❌ Error mengambil user: {e}")
+            return await message.reply_text(f"<blockquote>❌ Error mengambil user: {e}</blockquote>")
 
     try:
         sticker = await generate_quote(messages, color, is_reply=is_reply_style)
         await message.reply_sticker(sticker)
     except Exception as e:
-        await message.reply_text(f"❌ Gagal membuat quote: {e}")
+        await message.reply_text(f"<blockquote>❌ Gagal membuat quote: {e}</blockquote>")
 
 
 __MODULES__ = "Quote"
