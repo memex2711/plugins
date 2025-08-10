@@ -9,14 +9,14 @@ from ChampuMusic.utils.database import set_afk, get_afk, remove_afk  # fungsi db
 async def set_afk_cmd(_, message):
     reason = message.text.split(None, 1)[1] if len(message.text.split()) > 1 else "AFK"
     await set_afk(message.from_user.id, reason)
-    await message.reply_text(f"✅ AFK diaktifkan\n**Alasan:** {reason}")
+    await message.reply_text(f"gwej afk ☝️😹\n**Alasan:** {reason}</blockquote>")
 
 # BRB tanpa slash (contoh: brb tidur) (bisa dipakai semua user)
 @app.on_message(filters.regex(r"^(?i)brb\s+(.+)"))
 async def set_brb_cmd(_, message):
     reason = message.matches[0].group(1)
     await set_afk(message.from_user.id, reason)
-    await message.reply_text(f"✅ BRB diaktifkan\n**Alasan:** {reason}")
+    await message.reply_text(f"<blockquote>gwej afk ☝️😹\n**alasan:** {reason}</blockquote>")
 
 # Auto balas jika ada yang mention / reply
 @app.on_message(filters.group & (filters.mentioned | filters.reply))
@@ -57,7 +57,7 @@ async def mention_afk(_, message):
         minutes, _ = divmod(remainder, 60)
         user = await app.get_users(afk_user_id)
         await message.reply_text(
-            f"{user.first_name} Afk! {hours}h {minutes}m\n{data['reason']}"
+            f"<blockquote>{user.first_name} Afk! {hours}h {minutes}m\n{data['reason']}</blockquote>"
         )
 
 # Hilangkan AFK kalau user kirim pesan
@@ -66,7 +66,7 @@ async def remove_afk_handler(_, message):  # rename di sini!
     data = await get_afk(message.from_user.id)
     if data:
         await remove_afk(message.from_user.id)  # ini fungsi dari database
-        await message.reply_text("✅ Status AFK/BRB dihapus.")
+        await message.reply_text("<blockquote>udah online rek ☝️😹.</blockquote>")
 
 __MODULE__ = "Bᴀɴ"
 __HELP__ = """
