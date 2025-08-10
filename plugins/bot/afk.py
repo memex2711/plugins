@@ -2,7 +2,7 @@ from datetime import datetime
 from dateutil import parser
 from pyrogram import filters
 from ChampuMusic import app
-from ChampuMusic.utils.database import set_afk, get_afk, remove_afk
+from ChampuMusic.utils.database import set_afk, get_afk, remove_afk  # fungsi db
 
 # Command /afk (bisa dipakai semua user)
 @app.on_message(filters.command("afk"))
@@ -29,17 +29,14 @@ async def mention_afk(_, message):
     if message.reply_to_message and message.reply_to_message.from_user:
         afk_user_id = message.reply_to_message.from_user.id
     else:
-        # cek mention entities jika ada
         if message.entities:
             for ent in message.entities:
                 if ent.type == "text_mention" and ent.user:
                     afk_user_id = ent.user.id
                     break
                 elif ent.type == "mention":
-                    # ambil username dari teks mention
                     username = message.text[ent.offset : ent.offset + ent.length]
-                    # username pasti diawali dengan '@', hapus '@'
-                    username = username[1:]  
+                    username = username[1:]
                     try:
                         user = await app.get_users(username)
                         afk_user_id = user.id
@@ -53,7 +50,6 @@ async def mention_afk(_, message):
     data = await get_afk(afk_user_id)
     if data:
         start_time = data["start"]
-        # Pastikan start_time adalah datetime
         if isinstance(start_time, str):
             start_time = parser.parse(start_time)
         elapsed = datetime.utcnow() - start_time
@@ -66,10 +62,10 @@ async def mention_afk(_, message):
 
 # Hilangkan AFK kalau user kirim pesan
 @app.on_message(filters.text)
-async def remove_afk(_, message):
+async def remove_afk_handler(_, message):  # rename di sini!
     data = await get_afk(message.from_user.id)
     if data:
-        await remove_afk(message.from_user.id)
+        await remove_afk(message.from_user.id)  # ini fungsi dari database
         await message.reply_text("✅ Status AFK/BRB dihapus.")
 
 __MODULE__ = "Bᴀɴ"
