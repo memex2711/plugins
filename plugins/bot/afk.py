@@ -32,7 +32,6 @@ async def set_brb_cmd(_, message):
         else f"<a href=\"tg://user?id={user.id}\">{user.first_name}</a> brb mulu lu pler"
     )
     await set_afk(user.id, reason)
-    await message.reply_text(f"<blockquote>gwej afk ☝️😹\n{reason}\n</blockquote>")
 
 # Auto balas jika ada yang mention / reply
 @app.on_message(filters.group & (filters.mentioned | filters.reply))
