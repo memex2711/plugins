@@ -1,4 +1,5 @@
 from datetime import datetime
+from dateutil import parser
 from pyrogram import filters
 from ChampuMusic import app
 from ChampuMusic.utils.database import set_afk, get_afk, remove_afk
@@ -52,6 +53,9 @@ async def mention_afk(_, message):
     data = await get_afk(afk_user_id)
     if data:
         start_time = data["start"]
+        # Pastikan start_time adalah datetime
+        if isinstance(start_time, str):
+            start_time = parser.parse(start_time)
         elapsed = datetime.utcnow() - start_time
         hours, remainder = divmod(int(elapsed.total_seconds()), 3600)
         minutes, _ = divmod(remainder, 60)
