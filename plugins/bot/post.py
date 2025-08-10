@@ -19,7 +19,7 @@ async def copy_messages(_, message: Message):
                 return
         else:
             # If no argument is provided, use the default group ID
-            destination_group_id = -1001423108989
+            destination_group_id = -1002540043992
 
         try:
             # Attempt to copy the message to the specified group
