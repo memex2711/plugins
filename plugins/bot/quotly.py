@@ -13,7 +13,7 @@ QUOTE_COLORS = [
 ]
 
 # API Quotly
-QUOTLY_API = "https://bot.lyo.su/quote/generate"
+QUOTLY_API = "https://bot.lyo.su/quote/generate.png"
 
 async def generate_quote(messages, color, is_reply=False):
     """
