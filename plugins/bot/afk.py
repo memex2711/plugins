@@ -7,18 +7,32 @@ from ChampuMusic.utils.database import set_afk, get_afk, remove_afk  # fungsi db
 # Command /afk (bisa dipakai semua user)
 @app.on_message(filters.command("afk"))
 async def set_afk_cmd(_, message):
-    reason = message.text.split(None, 1)[1] if len(message.text.split()) > 1 else "<a href=\"tg://user?id={user.id}\">{user.first_name}</a> alay bet afk😹"
-    await set_afk(message.from_user.id, reason)
+    if not message.from_user:
+        return
+
+    user = message.from_user
+    reason = (
+        message.text.split(None, 1)[1]
+        if len(message.text.split()) > 1
+        else f"<a href=\"tg://user?id={user.id}\">{user.first_name}</a> alay bet afk😹"
+    )
+    await set_afk(user.id, reason)
     await message.reply_text(f"gwej afk ☝️😹\n {reason}</blockquote>")
 
 # BRB tanpa slash (contoh: brb tidur) (bisa dipakai semua user)
 @app.on_message(filters.regex(r"(?i)^brb(?:\s+(.+))?$"))
 async def set_brb_cmd(_, message):
-    reason = message.matches[0].group(1) if message.matches[0].group(1) else "<a href=\"tg://user?id={user.id}\">{user.first_name}</a> brb mulu lu pler"
-    await set_afk(message.from_user.id, reason)
-    await message.reply_text(
-        f"<blockquote>gwej afk ☝️😹\n{reason}\n</blockquote>"
+    if not message.from_user:
+        return
+
+    user = message.from_user
+    reason = (
+        message.matches[0].group(1)
+        if message.matches[0].group(1)
+        else f"<a href=\"tg://user?id={user.id}\">{user.first_name}</a> brb mulu lu pler"
     )
+    await set_afk(user.id, reason)
+    await message.reply_text(f"<blockquote>gwej afk ☝️😹\n{reason}\n</blockquote>")
 
 # Auto balas jika ada yang mention / reply
 @app.on_message(filters.group & (filters.mentioned | filters.reply))
