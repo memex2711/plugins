@@ -70,59 +70,44 @@ async def qcolor_handler(_, message: Message):
     await message.reply_text(f"<blockquote>🎨 **Daftar warna Quote:**{warna_list}</blockquote>")
 
 
-@app.on_message(filters.command(["q", "qr"]))
-async def quote_handler(client, message: Message):
+@app.on_message(filters.command(["q", "qr"], prefixes=["/", "!", "."]))
+async def quote_handler(client, message):
+    print("✅ /q handler terpanggil:", message.text)  # Debug di console
+
     if not message.reply_to_message:
         return await message.reply_text("<blockquote>⚠️ Balas pesan yang ingin di-quote!</blockquote>")
 
-    args = message.text.split()
-    is_reply_style = message.command[0] == "qr"
-
-    color = None
-    fake_user = None
-    multi_count = None
-
-    # Parsing argumen
-    for arg in args[1:]:
-        if arg.startswith("@"):
-            fake_user = arg[1:]
-        elif arg.isdigit():
-            multi_count = int(arg)
-        elif arg.lower() in QUOTE_COLORS:
-            color = arg.lower()
-
-    if not color:
-        color = random.choice(QUOTE_COLORS)
-
-    messages = []
-    if multi_count:
-        if multi_count > 10:
-            return await message.reply_text("<blockquote>⚠️ Maksimal 10 pesan!</blockquote>")
-        msgs = await client.get_messages(
-            chat_id=message.chat.id,
-            message_ids=range(
-                message.reply_to_message.id,
-                message.reply_to_message.id + multi_count
-            )
-        )
-        messages.extend([m for m in msgs if m and (m.text or m.caption)])
-    else:
-        messages.append(message.reply_to_message)
-
-    # Fake quote user
-    if fake_user:
-        try:
-            user_data = await client.get_users(fake_user)
-            for m in messages:
-                m.from_user = user_data
-        except Exception as e:
-            return await message.reply_text(f"<blockquote>❌ Error mengambil user: {e}</blockquote>")
-
     try:
-        sticker = await generate_quote(messages, color, is_reply=is_reply_style)
-        await message.reply_sticker(sticker)
+        # Panggil API Quotly
+        url = "https://bot.lyo.su/quote/generate"
+        payload = {
+            "messages": [
+                {
+                    "text": message.reply_to_message.text or "",
+                    "from": {
+                        "id": message.reply_to_message.from_user.id,
+                        "name": message.reply_to_message.from_user.first_name
+                    }
+                }
+            ]
+        }
+
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=payload) as resp:
+                if resp.status != 200:
+                    return await message.reply_text(f"<blockquote>⚠️ API gagal. Status: {resp.status}</blockquote>")
+
+                data = await resp.json()
+                img_url = data.get("result", {}).get("image")
+
+                if not img_url:
+                    return await message.reply_text("<blockquote>⚠️ API tidak mengembalikan gambar</blockquote>")
+
+                await message.reply_photo(img_url)
+
     except Exception as e:
-        await message.reply_text(f"<blockquote>❌ Gagal membuat quote: {e}</blockquote>")
+        print("❌ Error di /q:", e)
+        await message.reply_text("<blockquote>⚠️ Terjadi kesalahan saat membuat quote</blockquote>")
 
 
 __MODULES__ = "Quote"
