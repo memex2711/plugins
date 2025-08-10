@@ -64,10 +64,13 @@ async def mention_afk(_, message):
 
 # Hilangkan AFK kalau user kirim pesan
 @app.on_message(filters.text)
-async def remove_afk_handler(_, message):  # rename di sini!
+async def remove_afk_handler(_, message):
+    if not message.from_user:  # kalau bukan user (misal channel/system message)
+        return
+
     data = await get_afk(message.from_user.id)
     if data:
-        await remove_afk(message.from_user.id)  # ini fungsi dari database
+        await remove_afk(message.from_user.id)
         await message.reply_text("<blockquote>udah online rek ☝️😹.</blockquote>")
 
 __MODULE__ = "Bᴀɴ"
