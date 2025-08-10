@@ -57,7 +57,7 @@ async def mention_afk(_, message):
         minutes, _ = divmod(remainder, 60)
         user = await app.get_users(afk_user_id)
         await message.reply_text(
-            f"<blockquote><a href="tg://user?id={user.id}">{user.first_name}</a> Afk! {hours}h {minutes}m\n{data['reason']}</blockquote>"
+            f"<blockquote><a href=\"tg://user?id={user.id}\">{user.first_name}</a> Afk! {hours}h {minutes}m\n{data['reason']}</blockquote>"
         )
 
 # Hilangkan AFK kalau user kirim pesan
