@@ -5,9 +5,9 @@ from pyrogram import Client, filters
 from pyrogram.raw.functions.messages import DeleteHistory
 from pyrogram.types import Message
 
-from ChampuMusic import app
-from ChampuMusic.core.userbot import assistants
-from ChampuMusic.utils.database import get_client
+from MoonMusic import app
+from MoonMusic.core.userbot import assistants
+from MoonMusic.utils.database import get_client
 
 
 # === Manual SangMata Command ===
