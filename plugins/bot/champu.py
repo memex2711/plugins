@@ -1,9 +1,9 @@
 import random
-from ChampuMusic import app
-from ChampuMusic.misc import SUDOERS
+from MoonMusic import app
+from MoonMusic.misc import SUDOERS
 from pyrogram import filters
 from pyrogram.types import ChatPermissions, ChatPrivileges
-from ChampuMusic.utils.champu_ban import admin_filter
+from MoonMusic.utils.moon_ban import admin_filter
 
 Champu_text = [
 "hey please don't disturb me.",
