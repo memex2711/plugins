@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 import pyrogram
 from pyrogram import filters
 
-from ChampuMusic import app
-from ChampuMusic.misc import SUDOERS
+from MoonMusic import app
+from MoonMusic.misc import SUDOERS
 
 # Cooldown dictionary to prevent spam abuse
 cooldown = {}
