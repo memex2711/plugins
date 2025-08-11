@@ -1,19 +1,19 @@
-from ChampuMusic.misc import SPECIAL_ID
+from MoonMusic.misc import SPECIAL_ID
 from pyrogram import filters
 from pyrogram.enums import ChatType
 from strings import get_string
-from ChampuMusic import app
+from MoonMusic import app
 from pyrogram import *
 from pyrogram.types import *
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from ChampuMusic.utils import Champubin
-from ChampuMusic.utils.database import get_assistant, get_lang
+from MoonMusic.utils import Moonbin
+from MoonMusic.utils.database import get_assistant, get_lang
 import asyncio
 from config import OWNER_ID
 from os import getenv
 from dotenv import load_dotenv
 load_dotenv()
-from ChampuMusic.logging import LOGGER
+from MoonMusic.logging import LOGGER
 
 @app.on_message(
     filters.command(["vcuser", "vcusers", "vcmember", "vcmembers"]) & filters.admin
@@ -62,7 +62,7 @@ async def vc_members(client, message):
         if len(TEXT) < 4000:
             await msg.edit(TEXT or _["V_C_3"])
         else:
-            link = await Champubin(TEXT)
+            link = await Moonbin(TEXT)
             await msg.edit(
                 _["V_C_4"].format(link),
                 disable_web_page_preview=True,
