@@ -12,3 +12,4 @@ nekos.py
 telegraph
 uuid
 pytz
+lexica-api
