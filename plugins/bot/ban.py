@@ -14,13 +14,13 @@ from pyrogram.types import (
     InlineKeyboardMarkup,
 )
 from pyrogram.errors import FloodWait, ChatAdminRequired, UserNotParticipant, InviteHashExpired, PeerIdInvalid
-from ChampuMusic import app
-from ChampuMusic.misc import SUDOERS
-from ChampuMusic.core.mongo import mongodb
+from MoonMusic import app
+from MoonMusic.misc import SUDOERS
+from MoonMusic.core.mongo import mongodb
 from utils.error import capture_err
-from ChampuMusic.utils.keyboard import ikb
-from ChampuMusic.utils.database import save_filter
-from ChampuMusic.utils.functions import (
+from MoonMusic.utils.keyboard import ikb
+from MoonMusic.utils.database import save_filter
+from MoonMusic.utils.functions import (
     extract_user_and_reason,
     time_converter,
 )
