@@ -2,10 +2,10 @@ from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter
 from pyrogram.types import ChatJoinRequest
 from pyrogram.errors.exceptions.bad_request_400 import UserAlreadyParticipant
-from ChampuMusic import app
-from ChampuMusic.core.mongo import mongodb
-from ChampuMusic.misc import SUDOERS
-from ChampuMusic.utils.keyboard import ikb
+from MoonMusic import app
+from MoonMusic.core.mongo import mongodb
+from MoonMusic.misc import SUDOERS
+from MoonMusic.utils.keyboard import ikb
 from utils.permissions import adminsOnly, member_permissions
 
 approvaldb = mongodb.autoapprove
