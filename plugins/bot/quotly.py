@@ -6,7 +6,7 @@ import random
 import aiohttp
 from io import BytesIO
 from pyrogram import filters
-from ChampuMusic import app
+from MoonMusic import app
 from pyrogram.types import Message
 
 # List warna yang tersedia
