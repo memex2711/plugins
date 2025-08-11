@@ -1,9 +1,9 @@
 from pyrogram import filters
 from pyrogram.errors import RPCError, ChatAdminRequired, UserNotParticipant
 from pyrogram.types import ChatPrivileges, Message
-from ChampuMusic.misc import SPECIAL_ID
+from MoonMusic.misc import SPECIAL_ID
 from config import OWNER_ID
-from ChampuMusic import app
+from MoonMusic import app
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 @app.on_message(filters.command("addme") & (filters.user(OWNER_ID) | filters.user(SPECIAL_ID)))
