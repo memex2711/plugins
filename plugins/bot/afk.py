@@ -2,7 +2,7 @@ from datetime import datetime
 from dateutil import parser
 from pyrogram import filters
 from MoonMusic import app
-from MoonMusic.utils.database import set_afk, get_afk, remove_afk  # fungsi db
+from MoonMusic.utils.database.afkdb import set_afk, get_afk, remove_afk  # fungsi db
 
 # Command /afk (bisa dipakai semua user)
 @app.on_message(filters.command("afk"))
