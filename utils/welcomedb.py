@@ -1,4 +1,4 @@
-from ChampuMusic.core.mongo import mongodb
+from MoonMusic.core.mongo import mongodb
 from typing import Tuple
 greetingsdb = mongodb.greetings
 
